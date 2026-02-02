@@ -766,7 +766,7 @@ p {
 /* ---- Values/Why Us Section ---- */
 .values-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--space-lg);
 }
 
@@ -804,7 +804,13 @@ p {
   margin-bottom: var(--space-xs);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
   .values-grid {
     grid-template-columns: 1fr;
   }
@@ -1474,8 +1480,105 @@ p {
 
 .page-header .section-label {
   color: var(--color-coral);
-  font-size: 0.9rem;
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: var(--space-sm);
+}
+
+/* ---- Section Labels ---- */
+.section-label {
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-coral);
+  margin-bottom: var(--space-xs);
+}
+
+/* ---- Dropdown Menu ---- */
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--color-white);
+  font-weight: 500;
+  padding: var(--space-xs) 0;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.nav-dropdown-toggle svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition-fast);
+}
+
+.nav-dropdown:hover .nav-dropdown-toggle svg {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 180px;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all var(--transition-fast);
+  z-index: 1001;
+  padding: var(--space-xs) 0;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-dropdown-menu a {
+  display: block;
+  padding: 0.75rem 1.25rem;
+  color: var(--color-text);
+  font-weight: 500;
+  transition: background var(--transition-fast);
+}
+
+.nav-dropdown-menu a:hover {
+  background: var(--color-sand);
+  color: var(--color-coral);
+}
+
+@media (max-width: 992px) {
+  .nav-dropdown-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    background: transparent;
+    padding: 0;
+    margin-top: var(--space-xs);
+  }
+
+  .nav-dropdown-menu a {
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.5rem 1rem;
+  }
+
+  .nav-dropdown-menu a:hover {
+    background: transparent;
+    color: var(--color-coral);
+  }
 }
