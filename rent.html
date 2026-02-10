@@ -3,19 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BC1FWG505F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BC1FWG505F');
+  </script>
   <meta name="description" content="Saba Island vacation rentals. Find your perfect Caribbean getaway with our selection of villas and cottages available for short-term rental.">
   <meta name="keywords" content="Saba vacation rental, Caribbean vacation, Saba holiday rental, Windwardside rental, Saba island accommodation">
   
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="Vacation Rentals | Saban Realty">
+  <meta property="og:description" content="Saba Island vacation rentals. Find your perfect Caribbean getaway with our selection of villas and cottages available for short-term rental.">
+  <meta property="og:image" content="https://pub-78b56158b83942189fa28a4d5939bb79.r2.dev/assets/logo-horizontal.png">
+  <meta property="og:url" content="https://sabanrealty.com/rent.html">
+  <meta property="og:type" content="website">
+
   <title>Vacation Rentals | Saban Realty - Saba Island Accommodation</title>
+  <link rel="canonical" href="https://sabanrealty.com/rent.html">
   
   <link rel="icon" type="image/png" href="https://pub-78b56158b83942189fa28a4d5939bb79.r2.dev/assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.min.css">
 </head>
 <body>
-  
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
   <!-- Navigation -->
   <nav class="navbar scrolled">
     <div class="container nav-container">
@@ -55,6 +72,7 @@
     </div>
   </nav>
 
+  <main id="main-content">
   <!-- Page Hero -->
   <section class="page-hero">
     <div class="container page-hero-content">
@@ -73,7 +91,7 @@
     <div class="container">
       <div class="about-grid">
         <div class="about-image fade-in">
-          <img src="https://pub-78b56158b83942189fa28a4d5939bb79.r2.dev/rentals/spyglass-villa/1spyglass.jpeg" alt="Saba Island Caribbean View">
+          <img src="https://pub-78b56158b83942189fa28a4d5939bb79.r2.dev/rentals/spyglass-villa/1spyglass.jpeg" alt="Saba Island Caribbean View" loading="lazy">
         </div>
         <div class="about-content fade-in">
           <h2>Your Island Escape Awaits</h2>
@@ -152,7 +170,7 @@
 
               card.innerHTML = `
                 <div class="property-image">
-                  <img src="${rental.images[0]}" alt="${rental.title}">
+                  <img src="${rental.images[0]}" alt="${rental.title}" loading="lazy">
                   <span class="property-badge badge-rent">Vacation Rental</span>
                 </div>
                 <div class="property-content">
@@ -297,12 +315,14 @@
     </div>
   </section>
 
+  </main>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="https://pub-78b56158b83942189fa28a4d5939bb79.r2.dev/assets/logo-horizontal.png" alt="Saban Realty" style="height: 40px; margin-bottom: 1rem;">
+          <img src="https://pub-78b56158b83942189fa28a4d5939bb79.r2.dev/assets/logo-horizontal.png" alt="Saban Realty" style="height: 40px; margin-bottom: 1rem;" loading="lazy">
           <p>Your trusted partner for real estate on Saba Island, Caribbean Netherlands.</p>
         </div>
 
@@ -346,6 +366,6 @@
     </svg>
   </button>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.min.js"></script>
 </body>
 </html>

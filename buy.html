@@ -3,19 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BC1FWG505F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BC1FWG505F');
+  </script>
   <meta name="description" content="Browse Saba Island properties for sale. Find villas, cottages, and land parcels in Windwardside, The Bottom, Cove Bay, and more.">
   <meta name="keywords" content="Saba real estate, Saba property for sale, Caribbean homes, Windwardside property, Cove Bay land">
   
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="Properties for Sale | Saban Realty">
+  <meta property="og:description" content="Browse Saba Island properties for sale. Find villas, cottages, and land parcels in Windwardside, The Bottom, Cove Bay, and more.">
+  <meta property="og:image" content="https://pub-78b56158b83942189fa28a4d5939bb79.r2.dev/assets/logo-horizontal.png">
+  <meta property="og:url" content="https://sabanrealty.com/buy.html">
+  <meta property="og:type" content="website">
+
   <title>Properties for Sale | Saban Realty - Saba Island Real Estate</title>
+  <link rel="canonical" href="https://sabanrealty.com/buy.html">
   
   <link rel="icon" type="image/png" href="https://pub-78b56158b83942189fa28a4d5939bb79.r2.dev/assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.min.css">
 </head>
 <body>
-  
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
   <!-- Navigation -->
   <nav class="navbar scrolled">
     <div class="container nav-container">
@@ -55,6 +72,7 @@
     </div>
   </nav>
 
+  <main id="main-content">
   <!-- Page Hero -->
   <section class="page-hero">
     <div class="container page-hero-content">
@@ -187,7 +205,7 @@
 
               card.innerHTML = `
                 <div class="property-image">
-                  <img src="${property.images[0]}" alt="${property.title}">
+                  <img src="${property.images[0]}" alt="${property.title}" loading="lazy">
                   <span class="property-badge ${badgeClass}">${badgeText}</span>
                 </div>
                 <div class="property-content">
@@ -278,12 +296,14 @@
     </div>
   </section>
 
+  </main>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="https://pub-78b56158b83942189fa28a4d5939bb79.r2.dev/assets/logo-horizontal.png" alt="Saban Realty" style="height: 40px; margin-bottom: 1rem;">
+          <img src="https://pub-78b56158b83942189fa28a4d5939bb79.r2.dev/assets/logo-horizontal.png" alt="Saban Realty" style="height: 40px; margin-bottom: 1rem;" loading="lazy">
           <p>Your trusted partner for real estate on Saba Island, Caribbean Netherlands.</p>
         </div>
 
@@ -327,6 +347,6 @@
     </svg>
   </button>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.min.js"></script>
 </body>
 </html>

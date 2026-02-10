@@ -3,8 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BC1FWG505F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BC1FWG505F');
+  </script>
   <meta name="description" content="Property details on Saba Island - Saban Realty">
+  <!-- Open Graph / Social Media (dynamic og:image set via JS) -->
+  <meta property="og:title" content="Property Details | Saban Realty">
+  <meta property="og:description" content="Property details on Saba Island - Saban Realty">
+  <meta property="og:image" content="https://pub-78b56158b83942189fa28a4d5939bb79.r2.dev/assets/logo-horizontal.png">
+  <meta property="og:url" content="https://sabanrealty.com/property-detail.html">
+  <meta property="og:type" content="website">
+
   <title>Property Details | Saban Realty</title>
+  <link rel="canonical" href="https://sabanrealty.com/property-detail.html">
 
   <link rel="icon" type="image/png" href="https://pub-78b56158b83942189fa28a4d5939bb79.r2.dev/assets/favicon.png">
 
@@ -14,7 +30,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.min.css">
   <style>
     .property-detail-section {
       padding: 120px 0 60px;
@@ -258,6 +274,7 @@
   </style>
 </head>
 <body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
   <!-- Navigation -->
   <nav class="navbar scrolled">
     <div class="container nav-container">
@@ -297,6 +314,7 @@
     </div>
   </nav>
 
+  <main id="main-content">
   <!-- Property Detail Content -->
   <section class="property-detail-section">
     <div class="container">
@@ -314,12 +332,14 @@
     </div>
   </section>
 
+  </main>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="https://pub-78b56158b83942189fa28a4d5939bb79.r2.dev/assets/logo-horizontal.png" alt="Saban Realty" style="height: 40px; margin-bottom: 1rem;">
+          <img src="https://pub-78b56158b83942189fa28a4d5939bb79.r2.dev/assets/logo-horizontal.png" alt="Saban Realty" style="height: 40px; margin-bottom: 1rem;" loading="lazy">
           <p>Your trusted partner for real estate on Saba Island, Caribbean Netherlands.</p>
         </div>
 
@@ -362,7 +382,7 @@
   </button>
 
   <!-- Scripts -->
-  <script src="js/main.js"></script>
+  <script src="js/main.min.js"></script>
   <script>
     // Property Detail Page Logic
     document.addEventListener('DOMContentLoaded', async function() {
@@ -402,8 +422,42 @@
       const isRental = type === 'rental';
       const isSold = property.status === 'sold';
 
-      // Update page title
+      // Update page title and meta
       document.title = `${property.title} | Saban Realty`;
+      document.querySelector('meta[name="description"]').setAttribute('content',
+        `${property.title} - ${property.location}. ${isRental ? property.nightlyRateFormatted : property.priceFormatted}. View details, photos, and inquire about this ${property.type} on Saba Island.`
+      );
+
+      // Add structured data
+      const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": isRental ? "LodgingBusiness" : "RealEstateListing",
+        "name": property.title,
+        "description": property.description,
+        "image": property.images,
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": property.location,
+          "addressCountry": "BQ"
+        }
+      };
+      if (!isRental && property.price > 0) {
+        jsonLd.offers = {
+          "@type": "Offer",
+          "price": property.price,
+          "priceCurrency": "USD"
+        };
+      }
+      if (isRental && property.nightlyRate) {
+        jsonLd.priceRange = property.nightlyRateFormatted;
+      }
+      if (property.bedrooms > 0) {
+        jsonLd.numberOfRooms = property.bedrooms;
+      }
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.textContent = JSON.stringify(jsonLd);
+      document.head.appendChild(script);
 
       // Build gallery HTML - show ALL images
       const mainImage = property.images[0];
@@ -412,12 +466,12 @@
       let galleryHTML = `
         <div class="property-gallery">
           <div class="gallery-main">
-            <img src="${mainImage}" alt="${property.title}" id="mainImage">
+            <img src="${mainImage}" alt="${property.title}" id="mainImage" loading="lazy">
           </div>
           <div class="gallery-thumbs" style="display: flex; flex-wrap: wrap; gap: 0.5rem; max-height: 400px; overflow-y: auto;">
             ${allImages.map((img, i) => `
               <div class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="changeImage('${img}', this)" style="flex: 0 0 calc(50% - 0.25rem); aspect-ratio: 4/3;">
-                <img src="${img}" alt="${property.title} - Image ${i + 1}">
+                <img src="${img}" alt="${property.title} - Image ${i + 1}" loading="lazy">
               </div>
             `).join('')}
           </div>

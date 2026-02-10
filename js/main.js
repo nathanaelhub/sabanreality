@@ -237,10 +237,28 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     `;
     form.appendChild(successMsg);
-    
+
     setTimeout(() => {
       successMsg.remove();
     }, 5000);
+  }
+
+  function showFormError(form) {
+    const existing = form.querySelector('.form-error');
+    if (existing) existing.remove();
+
+    const errorMsg = document.createElement('div');
+    errorMsg.className = 'form-error';
+    errorMsg.innerHTML = `
+      <div style="background: #e07a5f; color: white; padding: 1rem; border-radius: 8px; margin-top: 1rem; text-align: center;">
+        <strong>Something went wrong.</strong> Please try again or email us directly at jeffsabarealty@gmail.com
+      </div>
+    `;
+    form.appendChild(errorMsg);
+
+    setTimeout(() => {
+      errorMsg.remove();
+    }, 7000);
   }
 
   // ---- Property Image Gallery (for detail pages) ----
@@ -291,16 +309,96 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // ---- Newsletter Form ----
+  // ---- Contact Form (FormSubmit.co AJAX) ----
+  const contactForm = document.getElementById('contactForm');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      // Client-side validation
+      let isValid = true;
+      const requiredFields = contactForm.querySelectorAll('[required]');
+
+      requiredFields.forEach(field => {
+        removeError(field);
+        if (!field.value.trim()) {
+          showError(field, 'This field is required');
+          isValid = false;
+        } else if (field.type === 'email' && !isValidEmail(field.value)) {
+          showError(field, 'Please enter a valid email address');
+          isValid = false;
+        }
+      });
+
+      if (!isValid) return;
+
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+
+      try {
+        const formData = new FormData(contactForm);
+        const response = await fetch('https://formsubmit.co/ajax/jeffsabarealty@gmail.com', {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+
+        if (result.success) {
+          showFormSuccess(contactForm);
+          contactForm.reset();
+        } else {
+          showFormError(contactForm);
+        }
+      } catch (error) {
+        showFormError(contactForm);
+      } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    });
+  }
+
+  // ---- Newsletter Form (FormSubmit.co AJAX) ----
   const newsletterForm = document.querySelector('.newsletter-form');
-  
+
   if (newsletterForm) {
-    newsletterForm.addEventListener('submit', function(e) {
+    newsletterForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       const email = this.querySelector('input[type="email"]');
-      
-      if (email && isValidEmail(email.value)) {
-        this.innerHTML = '<p style="color: #27ae60; font-weight: 600;">Thank you for subscribing!</p>';
+
+      if (!email || !isValidEmail(email.value)) return;
+
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Subscribing...';
+      submitBtn.disabled = true;
+
+      try {
+        const formData = new FormData();
+        formData.append('email', email.value);
+        formData.append('_subject', 'New Newsletter Subscriber - Saban Realty');
+        formData.append('_template', 'table');
+
+        const response = await fetch('https://formsubmit.co/ajax/jeffsabarealty@gmail.com', {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+
+        if (result.success) {
+          this.innerHTML = '<p style="color: #27ae60; font-weight: 600;">Thank you for subscribing!</p>';
+        } else {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+          showFormError(this);
+        }
+      } catch (error) {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        showFormError(this);
       }
     });
   }
