@@ -33,8 +33,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // ---- Navbar Scroll Effect ----
   const navbar = document.querySelector('.navbar');
-  
+  // If the HTML already marks this navbar as scrolled (inner pages), lock it solid.
+  const navbarAlwaysSolid = navbar && navbar.classList.contains('scrolled');
+
   function handleNavbarScroll() {
+    if (navbarAlwaysSolid) return; // Inner pages stay solid always
     if (window.scrollY > 100) {
       navbar.classList.add('scrolled');
     } else {

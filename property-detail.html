@@ -49,50 +49,7 @@
     .property-detail-section {
       padding: 120px 0 60px;
     }
-    .property-gallery {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-    }
-    .gallery-main {
-      aspect-ratio: 4/3;
-      overflow: hidden;
-      border-radius: var(--radius-lg);
-    }
-    .gallery-main img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-    .gallery-main img:hover {
-      transform: scale(1.02);
-    }
-    .gallery-thumbs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.5rem;
-    }
-    .gallery-thumb {
-      aspect-ratio: 4/3;
-      overflow: hidden;
-      border-radius: var(--radius-md);
-      cursor: pointer;
-      opacity: 0.7;
-      transition: opacity 0.3s ease;
-    }
-    .gallery-thumb:hover, .gallery-thumb.active {
-      opacity: 1;
-    }
-    .gallery-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    /* Gallery styles moved to styles.css */
     .property-header {
       display: flex;
       justify-content: space-between;
@@ -305,12 +262,6 @@
       margin-bottom: 1rem;
     }
     @media (max-width: 768px) {
-      .property-gallery {
-        grid-template-columns: 1fr;
-      }
-      .gallery-thumbs {
-        grid-template-columns: repeat(4, 1fr);
-      }
       .property-header {
         flex-direction: column;
       }
@@ -511,14 +462,16 @@
       const allImages = property.images;
 
       let galleryHTML = `
-        <div class="property-gallery">
-          <div class="gallery-main">
-            <img src="${mainImage}" alt="${property.title}" id="mainImage" loading="lazy">
+        <div class="gallery-wrapper">
+          <div class="gallery-main-wrap" id="galleryMainWrap">
+            <img src="${mainImage}" alt="${property.title}" id="mainImage" loading="eager">
+            <div class="gallery-expand-hint"><span>Click to expand</span></div>
+            <div class="gallery-counter" id="galleryCounter">1 / ${allImages.length}</div>
           </div>
-          <div class="gallery-thumbs" style="display: flex; flex-wrap: wrap; gap: 0.5rem; max-height: 400px; overflow-y: auto;">
+          <div class="gallery-thumbs-strip" id="galleryThumbs">
             ${allImages.map((img, i) => `
-              <div class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="changeImage('${img}', this)" style="flex: 0 0 calc(50% - 0.25rem); aspect-ratio: 4/3;">
-                <img src="${img}" alt="${property.title} - Image ${i + 1}" loading="lazy">
+              <div class="gallery-thumb-item ${i === 0 ? 'active' : ''}" data-index="${i}" data-src="${img}">
+                <img src="${img}" alt="${property.title} photo ${i + 1}" loading="lazy">
               </div>
             `).join('')}
           </div>
@@ -657,6 +610,9 @@
 
         ${ctaHTML}
       `;
+
+      // Set up interactive gallery + lightbox
+      setupGallery(allImages, property.title);
     }
 
     function showNotFound() {
@@ -670,10 +626,75 @@
       `;
     }
 
-    function changeImage(src, element) {
-      document.getElementById('mainImage').src = src;
-      document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
-      element.classList.add('active');
+    function setupGallery(images, title) {
+      let currentIndex = 0;
+      const mainImg = document.getElementById('mainImage');
+      const mainWrap = document.getElementById('galleryMainWrap');
+      const counter = document.getElementById('galleryCounter');
+      const thumbs = document.querySelectorAll('.gallery-thumb-item');
+      let lightboxImg, lightboxCounter;
+
+      function goTo(idx) {
+        currentIndex = ((idx % images.length) + images.length) % images.length;
+        mainImg.src = images[currentIndex];
+        if (counter) counter.textContent = `${currentIndex + 1} / ${images.length}`;
+        thumbs.forEach(t => t.classList.toggle('active', parseInt(t.dataset.index) === currentIndex));
+        const active = document.querySelector('.gallery-thumb-item.active');
+        if (active) active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+        if (lightboxImg) lightboxImg.src = images[currentIndex];
+        if (lightboxCounter) lightboxCounter.textContent = `${currentIndex + 1} / ${images.length}`;
+      }
+
+      thumbs.forEach(thumb => {
+        thumb.addEventListener('click', () => goTo(parseInt(thumb.dataset.index)));
+      });
+
+      // Build lightbox
+      const lb = document.createElement('div');
+      lb.className = 'lightbox';
+      lb.id = 'lightbox';
+      lb.innerHTML = `
+        <button class="lightbox-close" id="lbClose" aria-label="Close">&times;</button>
+        <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Previous image">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="lightbox-img-wrap">
+          <img class="lightbox-img" id="lightboxImg" src="" alt="${title}">
+        </div>
+        <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Next image">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="lightbox-counter" id="lightboxCounter"></div>
+      `;
+      document.body.appendChild(lb);
+
+      lightboxImg = document.getElementById('lightboxImg');
+      lightboxCounter = document.getElementById('lightboxCounter');
+
+      function openLightbox() {
+        lightboxImg.src = images[currentIndex];
+        lightboxCounter.textContent = `${currentIndex + 1} / ${images.length}`;
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      mainWrap.addEventListener('click', openLightbox);
+      document.getElementById('lbClose').addEventListener('click', closeLightbox);
+      lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+      document.getElementById('lbPrev').addEventListener('click', e => { e.stopPropagation(); goTo(currentIndex - 1); });
+      document.getElementById('lbNext').addEventListener('click', e => { e.stopPropagation(); goTo(currentIndex + 1); });
+
+      document.addEventListener('keydown', e => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') goTo(currentIndex - 1);
+        if (e.key === 'ArrowRight') goTo(currentIndex + 1);
+      });
     }
 
     function extractYouTubeId(url) {
