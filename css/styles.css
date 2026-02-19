@@ -543,7 +543,7 @@ p {
 /* ---- Page Hero (for inner pages) ---- */
 .page-hero {
   position: relative;
-  padding: calc(100px + var(--space-xxl)) 0 var(--space-xxl);
+  padding: 160px 0 var(--space-xxl);
   background: var(--color-ocean-deep);
   overflow: hidden;
 }
