@@ -468,12 +468,20 @@
             <div class="gallery-expand-hint"><span>Click to expand</span></div>
             <div class="gallery-counter" id="galleryCounter">1 / ${allImages.length}</div>
           </div>
-          <div class="gallery-thumbs-strip" id="galleryThumbs">
-            ${allImages.map((img, i) => `
-              <div class="gallery-thumb-item ${i === 0 ? 'active' : ''}" data-index="${i}" data-src="${img}">
-                <img src="${img}" alt="${property.title} photo ${i + 1}" loading="lazy">
-              </div>
-            `).join('')}
+          <div class="gallery-thumbs-nav">
+            <button class="gallery-nav-arrow gallery-nav-prev" id="thumbPrev" aria-label="Previous photos">
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="gallery-thumbs-strip" id="galleryThumbs">
+              ${allImages.map((img, i) => `
+                <div class="gallery-thumb-item ${i === 0 ? 'active' : ''}" data-index="${i}" data-src="${img}">
+                  <img src="${img}" alt="${property.title} photo ${i + 1}" loading="lazy">
+                </div>
+              `).join('')}
+            </div>
+            <button class="gallery-nav-arrow gallery-nav-next" id="thumbNext" aria-label="Next photos">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
           </div>
         </div>
       `;
@@ -632,7 +640,60 @@
       const mainWrap = document.getElementById('galleryMainWrap');
       const counter = document.getElementById('galleryCounter');
       const thumbs = document.querySelectorAll('.gallery-thumb-item');
+      const thumbStrip = document.getElementById('galleryThumbs');
+      const prevBtn = document.getElementById('thumbPrev');
+      const nextBtn = document.getElementById('thumbNext');
       let lightboxImg, lightboxCounter;
+
+      // Drag-to-scroll functionality
+      let isDragging = false;
+      let startX, scrollLeft, hasDragged = false;
+
+      thumbStrip.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        hasDragged = false;
+        thumbStrip.classList.add('dragging');
+        startX = e.pageX - thumbStrip.offsetLeft;
+        scrollLeft = thumbStrip.scrollLeft;
+      });
+
+      thumbStrip.addEventListener('mouseleave', () => {
+        isDragging = false;
+        thumbStrip.classList.remove('dragging');
+      });
+
+      thumbStrip.addEventListener('mouseup', () => {
+        isDragging = false;
+        thumbStrip.classList.remove('dragging');
+      });
+
+      thumbStrip.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - thumbStrip.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        if (Math.abs(walk) > 5) hasDragged = true;
+        thumbStrip.scrollLeft = scrollLeft - walk;
+      });
+
+      // Prevent click on thumbs if we just dragged
+      thumbStrip.addEventListener('click', (e) => {
+        if (hasDragged) {
+          e.stopPropagation();
+          hasDragged = false;
+        }
+      }, true);
+
+      // Arrow button navigation
+      const scrollAmount = 200;
+
+      prevBtn.addEventListener('click', () => {
+        thumbStrip.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        thumbStrip.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      });
 
       function goTo(idx) {
         currentIndex = ((idx % images.length) + images.length) % images.length;
