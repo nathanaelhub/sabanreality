@@ -426,6 +426,11 @@
         `${property.title} - ${property.location}. ${isRental ? property.nightlyRateFormatted : property.priceFormatted}. View details, photos, and inquire about this ${property.type} on Saba Island.`
       );
 
+      // Update canonical URL and og:url to include query parameters
+      const canonicalUrl = `https://sabanrealty.com/property-detail.html?id=${property.id}&type=${type}`;
+      document.querySelector('link[rel="canonical"]').setAttribute('href', canonicalUrl);
+      document.querySelector('meta[property="og:url"]').setAttribute('content', canonicalUrl);
+
       // Add structured data
       const jsonLd = {
         "@context": "https://schema.org",

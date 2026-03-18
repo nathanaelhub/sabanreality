@@ -34,9 +34,14 @@
 
   <!-- Properties for Sale -->
   <url>
-    <loc>https://sabanrealty.com/property-detail.html?id=statia-poolhouse&amp;type=sale</loc>
+    <loc>https://sabanrealty.com/property-detail.html?id=hidden-treasure-villa&amp;type=sale</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sabanrealty.com/property-detail.html?id=susanas-cottage&amp;type=sale</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://sabanrealty.com/property-detail.html?id=daphne-cottage&amp;type=sale</loc>
@@ -65,11 +70,6 @@
   </url>
   <url>
     <loc>https://sabanrealty.com/property-detail.html?id=house-on-the-path&amp;type=sale</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://sabanrealty.com/property-detail.html?id=rainbow-cottage&amp;type=sale</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -108,30 +108,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://sabanrealty.com/property-detail.html?id=lynch-beachfront-estate&amp;type=sale</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
 
   <!-- Vacation Rentals -->
   <url>
     <loc>https://sabanrealty.com/property-detail.html?id=spyglass-villa&amp;type=rental</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sabanrealty.com/property-detail.html?id=effies-cottage&amp;type=rental</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sabanrealty.com/property-detail.html?id=suzanna-cottage-rental&amp;type=rental</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sabanrealty.com/property-detail.html?id=compass-vacation-rental&amp;type=rental</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -142,11 +122,6 @@
   </url>
   <url>
     <loc>https://sabanrealty.com/property-detail.html?id=hibiscus-vacation-rental&amp;type=rental</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sabanrealty.com/property-detail.html?id=poets-painters&amp;type=rental</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
