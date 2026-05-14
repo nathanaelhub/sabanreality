@@ -278,6 +278,11 @@
               card.style.textDecoration = 'none';
               card.style.color = 'inherit';
 
+              const village = (property.location || '').split(',')[0].trim();
+              const elevationHTML = property.elevation
+                ? `<span class="property-elevation">&middot; ${property.elevation}</span>`
+                : '';
+
               card.innerHTML = `
                 <div class="property-image">
                   <img src="${property.images[0]}" alt="${property.title}" loading="lazy">
@@ -291,7 +296,8 @@
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
                       <circle cx="12" cy="10" r="3"/>
                     </svg>
-                    ${property.location}
+                    <span class="property-village">${village}</span>
+                    ${elevationHTML}
                   </p>
                   <div class="property-features">
                     ${featuresHTML}
