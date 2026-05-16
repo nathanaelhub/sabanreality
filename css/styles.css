@@ -2770,3 +2770,327 @@ p {
   margin-left: 0.25rem;
   font-variant-numeric: tabular-nums;
 }
+
+/* ==========================================================================
+   Saban Realty — v2 additions
+   Append this entire file to the end of css/styles.css
+   ========================================================================== */
+
+/* ===== Video Tour section (property detail page) ===== */
+.video-tour {
+  margin: 2.5rem 0;
+  padding: 2rem;
+  background:
+    linear-gradient(180deg, rgba(10,37,64,0.02), rgba(10,37,64,0.06)),
+    var(--color-white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-sand-dark);
+}
+
+.video-tour-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.video-tour-head .video-tour-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--color-ocean-deep);
+  margin: 0;
+}
+
+.video-tour-head .video-tour-from {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+}
+
+.video-tour-head .video-tour-from a {
+  color: var(--color-coral);
+  text-decoration: none;
+}
+
+.video-tour-head .video-tour-from a:hover {
+  text-decoration: underline;
+}
+
+/* Main poster / player */
+.video-stage {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  background: #000;
+  border: 0;
+  padding: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  display: block;
+}
+
+.video-stage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  display: block;
+}
+
+.video-stage:hover img { transform: scale(1.03); }
+
+.video-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.55));
+}
+
+/* Playing state: live iframe replaces the poster — drop the click
+   affordance and the poster gradient so they don't sit over the video. */
+.video-stage--playing { cursor: default; }
+.video-stage--playing::after { display: none; }
+
+.video-stage .video-stage-play {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: 88px;
+  height: 88px;
+  background: var(--color-coral);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 0 8px rgba(255,255,255,0.12);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s;
+  z-index: 2;
+}
+
+.video-stage:hover .video-stage-play {
+  transform: translate(-50%, -50%) scale(1.06);
+  background: var(--color-coral-dark);
+}
+
+.video-stage .video-stage-play::after {
+  content: '';
+  border-left: 22px solid #fff;
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  margin-left: 6px;
+}
+
+.video-stage .video-stage-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.video-stage .video-stage-meta {
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  color: #fff;
+}
+
+.video-stage .video-stage-meta .video-stage-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+}
+
+.video-stage .video-stage-meta .video-stage-dur {
+  font-size: 0.75rem;
+  background: rgba(0,0,0,0.45);
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  letter-spacing: 0.1em;
+}
+
+/* Thumbnail strip (only shows if more than one video) */
+.video-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.video-thumb {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  padding: 0;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  cursor: pointer;
+  background: #000;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.video-thumb:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.video-thumb.active {
+  outline: 2px solid var(--color-coral);
+  outline-offset: 2px;
+}
+
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+.video-thumb:hover img,
+.video-thumb.active img { opacity: 1; }
+
+.video-thumb .video-thumb-meta {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 0.5rem 0.75rem;
+  background: linear-gradient(transparent, rgba(0,0,0,0.75));
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.video-thumb .video-thumb-meta .video-thumb-dur {
+  font-size: 0.7rem;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.video-thumb .video-thumb-play {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.92);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-thumb .video-thumb-play::after {
+  content: '';
+  border-left: 11px solid var(--color-ocean-deep);
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  margin-left: 3px;
+}
+
+@media (max-width: 640px) {
+  .video-tour { padding: 1.25rem; }
+  .video-strip { grid-template-columns: 1fr 1fr; }
+  .video-stage .video-stage-play {
+    width: 64px;
+    height: 64px;
+  }
+  .video-stage .video-stage-play::after {
+    border-left-width: 16px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+  }
+  .video-stage .video-stage-meta .video-stage-title { font-size: 1.1rem; }
+}
+
+
+/* ===== Footer social row ===== */
+.footer-social-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 1.25rem 0 0.625rem;
+}
+
+.footer-social {
+  display: flex;
+  gap: 0.625rem;
+}
+
+.footer-social a {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.2s, transform 0.2s, border-color 0.2s;
+}
+
+.footer-social a:hover {
+  background: var(--color-coral);
+  border-color: var(--color-coral);
+  transform: translateY(-2px);
+}
+
+.footer-social svg {
+  width: 18px;
+  height: 18px;
+}
+
+
+/* ===== Property card video pill (optional, for grid cards) ===== */
+.property-image .video-pill {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  background: rgba(10, 37, 64, 0.78);
+  color: #fff;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  z-index: 2;
+}
+
+.property-image .video-pill::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 7px solid #fff;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
