@@ -2,6 +2,9 @@
   "properties": [
     {
       "id": "hidden-treasure-villa",
+      "videos": [
+        { "label": "Property Tour", "id": "trpERWTJUww" }
+      ],
       "title": "Hidden Treasure Villa",
       "location": "Zions Hill, Saba",
       "price": 0,
@@ -30,6 +33,9 @@
     },
     {
       "id": "susanas-cottage",
+      "videos": [
+        { "label": "Property Tour", "id": "h5mi2fq9ggo" }
+      ],
       "title": "Susanna Cottage",
       "location": "Zions Hill, Saba",
       "price": 0,
@@ -94,6 +100,9 @@
     },
     {
       "id": "daphne-cottage",
+      "videos": [
+        { "label": "Property Tour", "id": "SIRdL9tyS10" }
+      ],
       "title": "Daphne Cottage",
       "location": "Windwardside, Saba",
       "price": 450000,
@@ -121,6 +130,9 @@
     },
     {
       "id": "the-glasshouse",
+      "videos": [
+        { "label": "Property Tour", "id": "nuV2wOzIo-U" }
+      ],
       "title": "The Glasshouse",
       "location": "Windwardside, Saba",
       "elevation": "1,470 ft",
@@ -163,6 +175,9 @@
     },
     {
       "id": "iguana-rock",
+      "videos": [
+        { "label": "Property Tour", "id": "pCFoDVRk5vM" }
+      ],
       "title": "Iguana Rock House",
       "location": "Windwardside, Saba",
       "price": 890000,
@@ -196,6 +211,9 @@
     },
     {
       "id": "view-villa",
+      "videos": [
+        { "label": "Property Tour", "id": "N_HBAInQXz4" }
+      ],
       "title": "View Villa",
       "location": "Windwardside, Saba",
       "elevation": "1,310 ft",
@@ -233,6 +251,9 @@
     },
     {
       "id": "seagrape-cottage",
+      "videos": [
+        { "label": "Property Tour", "id": "SoF6vef5ddk" }
+      ],
       "title": "Seagrape Cottage",
       "location": "Cove Bay, Saba",
       "price": 795000,
@@ -266,6 +287,9 @@
     },
     {
       "id": "house-on-the-path",
+      "videos": [
+        { "label": "Property Tour", "id": "pjpu8oQ5gjM" }
+      ],
       "title": "House on the Path",
       "location": "Windwardside, Saba",
       "price": 525000,
@@ -320,6 +344,9 @@
     },
     {
       "id": "anslyn-estate",
+      "videos": [
+        { "label": "Property Tour", "id": "ihnfPpv-h9w" }
+      ],
       "title": "Anslyn Estate",
       "location": "Windwardside, Saba",
       "price": 600000,
@@ -374,6 +401,9 @@
     },
     {
       "id": "middle-island-property",
+      "videos": [
+        { "label": "Property Tour", "id": "Tsc-uOtvKO0" }
+      ],
       "title": "Middle Island Property",
       "location": "Wells Bay Road, Saba",
       "price": 106000,
@@ -395,6 +425,9 @@
     },
     {
       "id": "treasured-horseshoe-property",
+      "videos": [
+        { "label": "Property Tour", "id": "22nht4vb3f0" }
+      ],
       "title": "Treasured Horseshoe Property",
       "location": "Zions Hill, Saba",
       "price": 150000,
@@ -418,6 +451,9 @@
     },
     {
       "id": "first-light-property",
+      "videos": [
+        { "label": "Property Tour", "id": "Xz5ga_3L0fo" }
+      ],
       "title": "First Light Property",
       "location": "Zions Hill, Saba",
       "elevation": "880 ft",
@@ -440,6 +476,9 @@
     },
     {
       "id": "sunrise-ridge",
+      "videos": [
+        { "label": "Property Tour", "id": "CARLCJi_edw" }
+      ],
       "title": "Sunrise Ridge",
       "location": "Zions Hill, Saba",
       "price": 209000,
@@ -463,6 +502,9 @@
     },
     {
       "id": "johnnys-ground-secret",
+      "videos": [
+        { "label": "Property Tour", "id": "q3Q61V4Ud2c" }
+      ],
       "title": "Johnny's Ground Secret",
       "location": "Windwardside, Saba",
       "price": 267000,
