@@ -2755,20 +2755,13 @@ p {
 .page-hero::after { background: linear-gradient(90deg, transparent, rgba(212, 168, 83, 0.45), transparent); }
 .hero-scroll { animation: none; opacity: 0.6; }
 
-/* Property card: lean into village + elevation (Saba's actual story) */
+/* Property card: surface the village name */
 .property-village {
   font-weight: 600;
   color: var(--color-ocean-deep);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 0.78rem;
-}
-.property-elevation {
-  color: var(--color-text-light);
-  font-size: 0.78rem;
-  letter-spacing: 0.04em;
-  margin-left: 0.25rem;
-  font-variant-numeric: tabular-nums;
 }
 
 /* ==========================================================================
@@ -3093,4 +3086,66 @@ p {
   border-left: 7px solid #fff;
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
+}
+
+
+/* ===== Village map — "Pick a hill, then a house" (homepage) =====
+   A light postcard-flavored accent: warm sand background with a subtle
+   dot texture, the island sketched as an SVG with its five villages. */
+.village-map-section {
+  background-color: var(--color-sand);
+  background-image: radial-gradient(rgba(10, 37, 64, 0.05) 1px, transparent 1px);
+  background-size: 5px 5px;
+  padding: var(--space-xxl) 0;
+}
+
+.village-map-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-sand-dark);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: clamp(2rem, 4vw, 3.5rem);
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: center;
+}
+
+.village-map-eyebrow {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--color-coral);
+  margin-bottom: var(--space-sm);
+}
+
+.village-map-text h2 {
+  line-height: 1.1;
+  margin-bottom: var(--space-sm);
+}
+
+.village-map-text p {
+  color: var(--color-text-light);
+  line-height: 1.8;
+  margin-bottom: var(--space-md);
+}
+
+.village-map-svg svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.village-map-svg text {
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .village-map-card {
+    grid-template-columns: 1fr;
+  }
+  .village-map-svg {
+    order: -1;
+  }
 }
